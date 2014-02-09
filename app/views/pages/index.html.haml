@@ -1,0 +1,16 @@
+%h1.headline GDP Comparisons
+%h2.subHeadline
+
+:javascript
+    window.countries = #{@countries};
+    window.worldGDP = #{@world_gdp};
+
+%form#countryForm
+    %input.countries{type: "text", name: "first_country", placeholder: "First Country", autofocus: ""}
+    %input.countries{type: "text", name: "second_country", placeholder: "Second Country"}
+    %input{type: "submit", value: "GO"}
+
+%section#graphWrapper
+
+%a{href: "https://github.com/nlfurniss/gdp_comparison", target: "_blank"}
+    %img{style: "position: absolute; top: 0; right: 0; border: 0;", src: "https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png", alt: "Fork me on GitHub"}
