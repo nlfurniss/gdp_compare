@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
     def index
         if @regions
-            @regions.replace(/,/, '').split(',').each do |region|
+            @regions.split(',').each do |region|
                 data = Region.find_by_name(region).incomes.where("gdp > 0").pluck(:year, :gdp)
                 @response.push({name: region, data: data})
             end
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
     def get_data
         @response = []
-        @regions.gsub!(/^,/, '').split(',').each do |region|
+        @regions.gsub(/^,/, '').split(',').each do |region| #.gsub!(/^,/, '')
             data = Region.find_by_name(region).incomes.where("gdp > 0").pluck(:year, :gdp)
             @response.push({name: region, data: data})
         end

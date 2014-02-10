@@ -10,7 +10,6 @@ window.GDP = {
         });
 
         $('.logScale input').on('change', function(event) {
-            console.log(event.target.checked);
             self.toggelLogScale(event.target.checked);
         });
 
