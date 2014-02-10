@@ -1,10 +1,11 @@
-!!!
+!!! 5
 %html
     %head
         %title GDP Comparison
         = stylesheet_link_tag "application", :media => "all"
         = csrf_meta_tags
         = render "layouts/google_analytics"
+        %link{href: '/favicon.ico', rel: 'shortcut icon', type: 'image/ico'}
     %body
         = yield
         = javascript_include_tag "application"
