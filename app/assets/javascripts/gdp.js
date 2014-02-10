@@ -9,6 +9,11 @@ window.GDP = {
             self.fetchData(event);
         });
 
+        $('.logScale input').on('change', function(event) {
+            console.log(event.target.checked);
+            self.toggelLogScale(event.target.checked);
+        });
+
         // Add autocompletes to the inputs
         $('.countries').autocomplete({
             source: window.countries
@@ -17,7 +22,7 @@ window.GDP = {
         // Setup the World GDP chart
         this.chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'graphWrapper',
+                renderTo: 'chart',
                 type: 'line',
                 //backgroundColor: '#F2F1ED',
                 borderColor: '#000000',
@@ -27,6 +32,10 @@ window.GDP = {
             title: {
                 text: null
             },
+            series: [{
+                name: 'Total World',
+                data: window.worldGDP,
+            }],
             xAxis: {
                 title: {
                     text: 'Year',
@@ -41,12 +50,13 @@ window.GDP = {
                     text: 'GDP/capita 1990 USD',
                     margin: 15
                 },
+                type: 'linear',
                 labels: {
                     formatter: function() {return '$' + Highcharts.numberFormat(this.value,0);},
                     x: -6,
                     y: 4
                 },
-                min: 0
+                min: 1
             },
             colors: [
                 '#FF851B',
@@ -56,6 +66,9 @@ window.GDP = {
                 line: {
                     marker: {
                         enabled: false
+                    },
+                    tooltip: {
+                        valuePrefix: '$'
                     }
                 }
             },
@@ -67,10 +80,13 @@ window.GDP = {
             tooltip: {
                 crosshairs: true
             },
-            series: [{
-                name: 'Total World',
-                data: window.worldGDP,
-            }]
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        text: 'Export'
+                    }
+                }
+            }
         });
     },
 
@@ -79,7 +95,7 @@ window.GDP = {
             $inputs = $form.children('input');
 
         // Make sure people aren't comparing the same region
-        if ($inputs[0].value == false && $inputs[0].value == false) {
+        if ($inputs[0].value == false && $inputs[1].value == false) {
             alert('Please enter at least one region');
             return false;
         }
@@ -117,6 +133,17 @@ window.GDP = {
             }, false, false);
         });
         self.chart.redraw();
+    },
+
+    toggelLogScale: function(value) {
+        switch (value) {
+            case true:
+                this.chart.yAxis[0].update({type: 'logarithmic'});
+                break;
+            case false:
+                this.chart.yAxis[0].update({type: 'linear'});
+                break;
+        }
     }
 };
 

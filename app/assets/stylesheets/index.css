@@ -1,6 +1,6 @@
 body {
-    /*padding: 40px;*/
     font-family: "Helvetica Neue";
+    font-weight: 300;
     background-color: #F2F1ED;
     border-top-width: 7px;
     border-top-style: solid;
@@ -9,24 +9,36 @@ body {
 }
 
 .headline {
-    margin: 35px 0 0 0;
+    margin: 25px 0 0 0;
     text-align: center;
     font-size: 60px;
-    font-weight: 200;
+}
+
+.subHeadline {
+    margin: 25px 0 0 0;
+    text-align: center;
+    font-size: 22px;
+}
+
+.twitter-share-button {
+    vertical-align: text-top;
 }
 
 #countryForm {
-    margin: 40px auto 45px;
+    margin: 40px auto 40px;
     width: 47%;
+}
+
+input {
+    font-family: inherit;
 }
 
 .countries {
     width: 250px;
     margin: 0 25px 0 0;
     padding: 10px;
-    font-family: inherit;
     font-size: 23px;
-    font-weight: 300;
+    font-weight: inherit;
     border: 2px solid #FF851B;
     border-radius: 5px;
     text-align: center;
@@ -48,7 +60,6 @@ input[type="submit"] {
     background-color: #FF851B;
     box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.3);
     color: #FFFFFF;
-    font-family: inherit;
     font-size: 20px;
 }
 
@@ -63,4 +74,8 @@ input[type="submit"]:active {
 #graphWrapper {
     margin: 0 auto;
     width: 75%;
+}
+
+.logScale {
+    font-weight: 400;
 }

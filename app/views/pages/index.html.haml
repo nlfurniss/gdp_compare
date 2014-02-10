@@ -1,5 +1,7 @@
 %h1.headline GDP Comparisons
 %h2.subHeadline
+    See historical GDP figures and compare them between two countries
+    %a.twitter-share-button{href: "https://twitter.com/share?url=http://gdpcompare.herokuapp.com&via=nlfurniss&text=GDP Head To Head at", "data-size" => "large", "data-count" => "none"} Tweet
 
 :javascript
     window.countries = #{@countries};
@@ -11,6 +13,10 @@
     %input{type: "submit", value: "GO"}
 
 %section#graphWrapper
+    %span.logScale
+        %input{type: 'checkbox'}
+        Logarithmic Scale
+    #chart
 
 %a{href: "https://github.com/nlfurniss/gdp_comparison", target: "_blank"}
     %img{style: "position: absolute; top: 0; right: 0; border: 0;", src: "https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png", alt: "Fork me on GitHub"}
