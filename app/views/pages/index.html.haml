@@ -5,7 +5,7 @@
 
 :javascript
     window.countries = #{@countries};
-    window.worldGDP = #{@world_gdp};
+    window.dataToLoad = #{@response};
 
 %form#countryForm
     %input.countries{type: "text", name: "first_country", placeholder: "First Country", autofocus: ""}
@@ -14,7 +14,7 @@
 
 %section#graphWrapper
     %label.logScale
-        %input{type: 'checkbox'}
+        %input{type: 'checkbox', checked: @scale}
         Logarithmic Scale
     #chart
 
