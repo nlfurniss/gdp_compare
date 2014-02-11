@@ -29,11 +29,11 @@ body {
     width: 47%;
 }
 
-input {
+#countryForm input {
     font-family: inherit;
 }
 
-.countries {
+#countryForm .countries {
     width: 250px;
     margin: 0 25px 0 0;
     padding: 10px;
@@ -45,13 +45,13 @@ input {
     -webkit-appearance: none;
 }
 
-.ui-autocomplete {
+#countryForm .countries.ui-autocomplete {
     max-height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-input[type="submit"] {
+#countryForm input[type="submit"] {
     height: 50px;
     width: 50px;
     vertical-align: top;
@@ -64,11 +64,11 @@ input[type="submit"] {
     outline: none;
 }
 
-input[type="submit"]:hover {
+#countryForm input[type="submit"]:hover {
     font-weight: 600;
 }
 
-input[type="submit"]:active {
+#countryForm input[type="submit"]:active {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -77,6 +77,38 @@ input[type="submit"]:active {
     width: 75%;
 }
 
-.logScale {
+#graphWrapper .logScale {
     font-weight: 400;
+}
+
+footer {
+    margin: 50px 0 0 0;
+    padding: 10px 0 15px;
+    width: 100%;
+    background-color: #123151;
+}
+
+footer .footerLinks {
+    margin: 0 auto;
+    width: 75%;
+    position: relative;
+}
+
+footer .footerLinks a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+footer .footerLinks a.right {
+    position: absolute;
+    right: 0;
+}
+
+footer .footerLinks a:hover {
+    text-decoration: underline;
+}
+
+footer .footerLinks a:visited {
+    color: #FFFFFF;
 }
