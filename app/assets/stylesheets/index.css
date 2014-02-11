@@ -75,6 +75,7 @@ body {
 #graphWrapper {
     margin: 0 auto;
     width: 75%;
+    min-height: 500px;
 }
 
 #graphWrapper .logScale {
