@@ -98,7 +98,7 @@ window.GDP = {
         // Set starting state for history
         history.replaceState({figures: this.chartOptions.series}, document.title, window.location.href);
 
-        // Setup the World GDP chart
+        // Setup the initial World GDP chart
         this.chart = new Highcharts.Chart(this.chartOptions);
     },
 
@@ -171,11 +171,9 @@ window.GDP = {
         switch (value) {
             case true:
                 this.chart.yAxis[0].update({type: 'logarithmic'});
-                history.pushState({}, document.title, window.location.search + '&scale=log');
                 break;
             case false:
                 this.chart.yAxis[0].update({type: 'linear'});
-                history.pushState({}, document.title, window.location.search.replace('&scale=log', ''));
                 break;
         }
     }
