@@ -12,7 +12,7 @@ window.GDP = {
         title: {
             text: null
         },
-        series: window.dataToLoad,
+        series: window.dataToLoad.figures,
         xAxis: {
             title: {
                 text: 'Year',
@@ -81,6 +81,10 @@ window.GDP = {
             self.toggelLogScale(event.target.checked);
         });
 
+        window.addEventListener('popstate', function(event) {
+            self.addData(event.state);
+        });
+
         // If the deep-link has log scale, set that before the chart renders
         if ($scale.is(':checked')) {
             this.chartOptions.yAxis.type = 'logarithmic';
@@ -90,6 +94,9 @@ window.GDP = {
         $('.countries').autocomplete({
             source: window.countries
         });
+
+        // Set starting state for history
+        history.replaceState({figures: this.chartOptions.series}, document.title, window.location.href);
 
         // Setup the World GDP chart
         this.chart = new Highcharts.Chart(this.chartOptions);
@@ -121,15 +128,25 @@ window.GDP = {
     success: function(data, status) {
         this.addData(data);
         var title, queryParams;
-        if (data.length > 1) {
-            title = 'GDP Comparisons: ' + data[0].name + ' vs. ' + data[1].name;
-            queryParams = '?regions=' + data[0].name + ',' + data[1].name;
-        } else {
-            title = 'GDP Comparisons: ' + data[0].name;
-            queryParams = '?regions=' + data[0].name;
+        if (data.errors.length > 0) {
+            $('title')[0].innerHTML = 'GDP Comparisons';
+            alert(data.errors.join(''));
+            return;
+        }
+        else if (data.figures.length > 1) {
+            title = 'GDP Comparisons: ' + data.figures[0].name + ' vs. ' + data.figures[1].name;
+            queryParams = '?regions=' + data.figures[0].name + ',' + data.figures[1].name;
+        }
+        else {
+            title = 'GDP Comparisons: ' + data.figures[0].name;
+            queryParams = '?regions=' + data.figures[0].name;
         }
         $('title')[0].innerHTML = title;
-        history.pushState({}, document.title, queryParams);
+        history.pushState(data, document.title, queryParams);
+
+        // Hacky way of changing the URL in the share Tweet
+        $('iframe').after('<a href="https://twitter.com/share?url=' + encodeURIComponent(window.location.href) + '&via=nlfurniss&text=GDP comparison between countries&hashtags=GDP,gdpHead2Head" class="twitter-share-button" data-size="large" data-count="none" style="display:none;">Tweet</a>').remove();
+        twttr.widgets.load();
     },
 
     error: function(jqXHR, textStatus, error) {
@@ -141,7 +158,7 @@ window.GDP = {
         while (self.chart.series.length > 0) {
             self.chart.series[0].remove(false);
         }
-        data.forEach(function(series) {
+        data.figures.forEach(function(series) {
             self.chart.addSeries({
                 name: series.name,
                 data: series.data

@@ -1,7 +1,7 @@
 %h1.headline GDP Comparisons
 %h2.subHeadline
     See historical GDP figures and compare them between two countries
-    %a.twitter-share-button{href: "https://twitter.com/share?url=http://gdpcompare.herokuapp.com&via=nlfurniss&text=GDP comparison between countries&hashtags=GDP,gdpHead2Head", "data-size" => "large", "data-count" => "none"} Tweet
+    %a.twitter-share-button{href: "https://twitter.com/share?url=http://gdpcompare.herokuapp.com#{u @query_params}&via=nlfurniss&text=GDP comparison between countries&hashtags=GDP,gdpHead2Head", "data-size" => "large", "data-count" => "none", style: "display: none"} Tweet
 
 :javascript
     window.countries = #{@countries};
