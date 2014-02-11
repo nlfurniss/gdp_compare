@@ -9,7 +9,7 @@ class PagesController < ApplicationController
 
         if @regions
             @response = query_data(@regions)
-            @title += ': ' + @regions.join(' vs. ') # @regions.join(' vs. ') (@regions.length > 1 ? @regions[0] + ' vs. ' + @regions[1] : @regions[0])
+            @title += ': ' + @regions.join(' vs. ')
             @query_params = '?regions=' + params[:regions]
             p @query_params
         else

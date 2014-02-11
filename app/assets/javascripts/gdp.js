@@ -69,6 +69,11 @@ window.GDP = {
     initialize: function() {
         var self = this;
 
+        // Chrome fires `popstate` event on page load (wtf?!)
+        // Workaround from here: https://github.com/defunkt/jquery-pjax/issues/143#issuecomment-6194330
+        self.hasUsedHistoryAPI = false;
+        self.initialUrl = window.location.href;
+
         // Add event listeners
         $('#countryForm').on('submit', function(event) {
             event.preventDefault();
@@ -82,7 +87,10 @@ window.GDP = {
         });
 
         window.addEventListener('popstate', function(event) {
+            var initialPop = !self.hasUsedHistoryAPI && self.initialUrl === location.href;
+            if (initialPop) { return; }
             self.addData(event.state);
+            self.clearInputs();
         });
 
         // If the deep-link has log scale, set that before the chart renders
@@ -143,6 +151,7 @@ window.GDP = {
         }
         $('title')[0].innerHTML = title;
         history.pushState(data, document.title, queryParams);
+        this.hasUsedHistoryAPI = true;
 
         // Hacky way of changing the URL in the share Tweet
         $('iframe').after('<a href="https://twitter.com/share?url=' + encodeURIComponent(window.location.href) + '&via=nlfurniss&text=GDP comparison between countries&hashtags=GDP,gdpHead2Head" class="twitter-share-button" data-size="large" data-count="none" style="display:none;">Tweet</a>').remove();
@@ -176,6 +185,13 @@ window.GDP = {
                 this.chart.yAxis[0].update({type: 'linear'});
                 break;
         }
+    },
+
+    clearInputs: function() {
+        console.log('clearing...');
+        $('#countryForm').children('input[type="text"]').each(function(index, elem) {
+            elem.value = '';
+        });
     }
 };
 
