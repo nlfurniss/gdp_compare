@@ -33,7 +33,7 @@ class PagesController < ApplicationController
     def query_data(regions)
         response = {errors: [], figures: []}
         @regions.each do |region|
-            data = Region.find_by_name(region.titlecase).try(:incomes).where("gdp > 0").pluck(:year, :gdp) rescue []
+            data = Region.where("name ilike ?", "%#{region}%").first.try(:incomes).where("gdp > 0").pluck(:year, :gdp) rescue []
             response[:errors].push("No data found for " + region + "\n") if data.blank?
             response[:figures].push({name: region, data: data})
         end

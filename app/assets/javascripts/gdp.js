@@ -126,7 +126,7 @@ window.GDP = {
         $.ajax({
             url: '/get_data',
             dataType: 'json',
-            data: 'regions=' + $inputs[0].value + ',' + $inputs[1].value,
+            data: 'regions=' + encodeURIComponent($inputs[0].value) + ',' + encodeURIComponent($inputs[1].value),
             context: this,
             success: this.success,
             error: this.error
@@ -188,7 +188,6 @@ window.GDP = {
     },
 
     clearInputs: function() {
-        console.log('clearing...');
         $('#countryForm').children('input[type="text"]').each(function(index, elem) {
             elem.value = '';
         });
