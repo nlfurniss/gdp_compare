@@ -34,7 +34,7 @@ body {
 }
 
 #countryForm .countries {
-    width: 250px;
+    width: 35%; /*250px*/
     margin: 0 25px 0 0;
     padding: 10px;
     font-size: 23px;
