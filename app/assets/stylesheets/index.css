@@ -26,7 +26,7 @@ body {
 
 #countryForm {
     margin: 40px auto 35px;
-    width: 47%;
+    width: 55%;
 }
 
 #countryForm input {
@@ -35,7 +35,7 @@ body {
 
 #countryForm .countries {
     width: 35%; /*250px*/
-    margin: 0 25px 0 0;
+    margin: 0 20px 0 0;
     padding: 10px;
     font-size: 23px;
     font-weight: inherit;
@@ -54,6 +54,7 @@ body {
 #countryForm input[type="submit"] {
     height: 50px;
     width: 50px;
+    padding: 0;
     vertical-align: top;
     border: 1px double #FFFFFF;
     border-radius: 50%;
@@ -62,6 +63,7 @@ body {
     color: #FFFFFF;
     font-size: 20px;
     outline: none;
+    -webkit-appearance: none;
 }
 
 #countryForm input[type="submit"]:hover {
