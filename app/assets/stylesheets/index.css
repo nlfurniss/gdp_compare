@@ -113,3 +113,15 @@ footer .footerLinks a:hover {
 footer .footerLinks a:visited {
     color: #FFFFFF;
 }
+
+#oldBorwserWarning {
+    display: none;
+    position: absolute;
+    padding: 0 0 10px 0;
+    background-color: #B5B4B1;
+}
+
+noscript {
+    font-size: 46px;
+    color: red;
+}

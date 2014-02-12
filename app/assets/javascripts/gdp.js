@@ -69,6 +69,11 @@ window.GDP = {
     initialize: function() {
         var self = this;
 
+        // Check for old browsers
+        if (window.history == null || Array.prototype.forEach == null) {
+            $('#oldBorwserWarning').css({display: 'block'});
+        }
+
         // Chrome fires `popstate` event on page load (wtf?!)
         // Workaround from here: https://github.com/defunkt/jquery-pjax/issues/143#issuecomment-6194330
         self.hasUsedHistoryAPI = false;

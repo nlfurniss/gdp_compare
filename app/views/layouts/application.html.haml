@@ -7,6 +7,9 @@
         = render "layouts/google_analytics"
         %link{href: '/favicon.ico', rel: 'shortcut icon', type: 'image/ico'}
     %body
+        %noscript This site won't work without Javascript enabled :-(
+        %section#oldBorwserWarning
+            %h1.headline This site won't work correctly with your browser. Consider updating it.
         = yield
         = javascript_include_tag "application"
         = render "layouts/twitter_intents"
