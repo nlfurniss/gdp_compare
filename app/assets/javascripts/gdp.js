@@ -69,6 +69,8 @@ window.GDP = {
     initialize: function() {
         var self = this;
 
+        this.currentData = {figures: self.chartOptions.series, scale: 'linear'};
+
         // Check for old browsers
         if (window.history == null || Array.prototype.forEach == null) {
             $('#oldBorwserWarning').css({display: 'block'});
@@ -94,8 +96,24 @@ window.GDP = {
         window.addEventListener('popstate', function(event) {
             var initialPop = !self.hasUsedHistoryAPI && self.initialUrl === location.href;
             if (initialPop) { return; }
-            self.addData(event.state);
-            self.clearInputs();
+
+            self.currentData = event.state;
+
+            if (self.currentData.scale === 'logarithmic') {
+                self.chart.yAxis[0].update({type: 'logarithmic'}, false);
+                if (!$scale.prop('checked')) {
+                    $scale.prop('checked', true);
+                }
+            } else {
+                self.chart.yAxis[0].update({type: 'linear'});
+                if ($scale.prop('checked')) {
+                    self.chart.yAxis[0].update({type: 'linear'}, false);
+                    $scale.prop('checked', false);
+                }
+            }
+
+            self.addData(self.currentData);
+            self.clearInputs(self.currentData);
         });
 
         // If the deep-link has log scale, set that before the chart renders
@@ -109,7 +127,7 @@ window.GDP = {
         });
 
         // Set starting state for history
-        history.replaceState({figures: this.chartOptions.series}, document.title, window.location.href);
+        history.replaceState({figures: this.chartOptions.series, scale: this.chartOptions.yAxis.type}, document.title, window.location.href);
 
         // Setup the initial World GDP chart
         this.chart = new Highcharts.Chart(this.chartOptions);
@@ -185,16 +203,27 @@ window.GDP = {
         switch (value) {
             case true:
                 this.chart.yAxis[0].update({type: 'logarithmic'});
+                this.currentData.scale = 'logarithmic';
+                var params = window.location.search + (window.location.search.match(/\?/) ? '&scale=log' : '?scale=log');
+                history.pushState(this.currentData, document.title, params);
+                this.hasUsedHistoryAPI = true;
                 break;
             case false:
                 this.chart.yAxis[0].update({type: 'linear'});
+                this.currentData.scale = 'linear';
+                history.pushState(this.currentData, document.title, window.location.href.replace(/\?scale=log|\&scale=log/, ''));
+                this.hasUsedHistoryAPI = true;
                 break;
         }
     },
 
-    clearInputs: function() {
+    clearInputs: function(data) {
         $('#countryForm').children('input[type="text"]').each(function(index, elem) {
-            elem.value = '';
+            if (data.figures[index]) {
+                elem.value = data.figures[index].name;
+            } else {
+                elem.value = '';
+            }
         });
     }
 };
