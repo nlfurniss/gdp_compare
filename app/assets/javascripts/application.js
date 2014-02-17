@@ -15,5 +15,5 @@
 //= require jquery-ui
 //= require highcharts
 //= require exporting
-//= gdp
+//= require gdp
 //= require_tree .
