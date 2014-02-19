@@ -76,11 +76,6 @@ window.GDP = {
             $('#oldBorwserWarning').css({display: 'block'});
         }
 
-        // Chrome fires `popstate` event on page load (wtf?!)
-        // Workaround from here: https://github.com/defunkt/jquery-pjax/issues/143#issuecomment-6194330
-        self.hasUsedHistoryAPI = false;
-        self.initialUrl = window.location.href;
-
         // Add event listeners
         $('#countryForm').on('submit', function(event) {
             event.preventDefault();
@@ -92,6 +87,11 @@ window.GDP = {
         $scale.on('change', function(event) {
             self.toggelLogScale(event.target.checked);
         });
+
+        // Chrome fires `popstate` event on page load (wtf?!)
+        // Workaround from here: https://github.com/defunkt/jquery-pjax/issues/143#issuecomment-6194330
+        self.hasUsedHistoryAPI = false;
+        self.initialUrl = window.location.href;
 
         window.addEventListener('popstate', function(event) {
             var initialPop = !self.hasUsedHistoryAPI && self.initialUrl === location.href;
